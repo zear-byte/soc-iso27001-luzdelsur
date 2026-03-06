@@ -11,43 +11,47 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 2. DISEÑO VISUAL CORREGIDO (ALTO CONTRASTE) ---
+# --- 2. DISEÑO VISUAL CORREGIDO (MÁXIMA LEGIBILIDAD) ---
 st.markdown("""
     <style>
-    /* Fondo General */
+    /* Fondo General Dark Mode */
     .main { background-color: #0e1117; }
     
-    /* Texto de las Métricas (Cuadros de Disponibilidad, etc.) */
+    /* Texto de las Métricas (Legibilidad Extrema) */
     div[data-testid="stMetricValue"] {
-        color: #00ff41 !important; /* Verde Neón para los números */
-        font-weight: bold;
+        color: #00ff41 !important; /* Verde Neón brillante */
+        font-weight: bold !important;
+        font-size: 2rem !important;
     }
     div[data-testid="stMetricLabel"] {
-        color: #ffffff !important; /* Blanco puro para los títulos de los cuadros */
-        font-size: 1.2rem !important;
+        color: #ffffff !important; /* Blanco puro para títulos */
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
     }
     div[data-testid="stMetric"] {
-        background-color: #161b22;
-        border: 2px solid #30363d;
-        padding: 15px;
-        border-radius: 12px;
+        background-color: #1c2128 !important;
+        border: 2px solid #30363d !important;
+        padding: 20px !important;
+        border-radius: 15px !important;
     }
 
-    /* BARRA LATERAL (Sidebar) - Forzar Texto Blanco */
+    /* BARRA LATERAL (Sidebar) - Contraste Alto */
     section[data-testid="stSidebar"] {
-        background-color: #0d1117 !important;
-        border-right: 1px solid #58a6ff;
+        background-color: #161b22 !important;
+        border-right: 1px solid #58a6ff !important;
     }
-    section[data-testid="stSidebar"] .st-at, section[data-testid="stSidebar"] label {
-        color: #ffffff !important; /* Texto de los radio buttons en blanco */
-        font-weight: 500;
+    section[data-testid="stSidebar"] .st-at, 
+    section[data-testid="stSidebar"] label, 
+    section[data-testid="stSidebar"] p {
+        color: #ffffff !important; /* Texto de la izquierda en blanco */
+        font-weight: bold !important;
     }
     
     /* Títulos Principales */
-    h1, h2, h3 { color: #58a6ff !important; }
+    h1, h2, h3 { color: #58a6ff !important; font-weight: bold !important; }
     
-    /* Texto general en blanco */
-    p, span, li { color: #e6edf3 !important; }
+    /* Texto general del cuerpo */
+    p, span, li, table { color: #ffffff !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -67,7 +71,6 @@ with st.sidebar:
 if modulo == "🚀 Dashboard de Mando":
     st.title("📊 Dashboard Estratégico (Sesión 4)")
     c1, c2, c3, c4 = st.columns(4)
-    # Los valores ahora serán legibles y resaltarán
     c1.metric("DISPONIBILIDAD", "99.99%", "Optimal")
     c2.metric("ATAQUES BLOQUEADOS", "1,240", "+15%", delta_color="inverse")
     c3.metric("INTEGRIDAD DATA", "VERIFIED", "PASS")
@@ -75,9 +78,10 @@ if modulo == "🚀 Dashboard de Mando":
 
     st.write("---")
     st.subheader("🌐 Monitoreo de Tráfico Inspeccionado")
+    # CORREGIDO: Datos completos para evitar SyntaxError
     df_chart = pd.DataFrame({
-        'Hora':,
-        'Paquetes (MB)':
+        'Hora': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        'Paquetes (MB)': [45, 52, 48, 61, 55, 67, 80, 72, 60, 58, 63, 70]
     })
     st.area_chart(df_chart.set_index('Hora'), color="#58a6ff")
 
@@ -89,16 +93,16 @@ elif modulo == "📦 Activos Críticos":
         "Criticidad": ["CRÍTICO", "CRÍTICO", "ALTO", "ALTO"],
         "Impacto": ["Interrupción Total", "Falla Eléctrica", "Pérdida Acceso", "Suplantación"]
     })
-    st.table(activos) # Cambiado de dataframe a table para mejor lectura
+    st.table(activos) 
 
 elif modulo == "📊 Análisis de Riesgos":
     st.title("📊 Matriz de Riesgo Residual (S2-S3)")
-    mitigacion = st.select_slider("Nivel de Madurez de Controles (%)", options=, value=40)
+    mitigacion = st.select_slider("Nivel de Madurez de Controles (%)", options=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], value=40)
     
     riesgos = pd.DataFrame({
         "Amenaza": ["Ransomware", "DDoS", "Fuga Data", "Inyección SQL"],
-        "Impacto":,
-        "Prob_Original":
+        "Impacto": [5, 4, 5, 4],
+        "Prob_Original": [0.8, 0.9, 0.7, 0.6]
     })
     riesgos["Prob_Residual"] = riesgos["Prob_Original"] * (1 - (mitigacion / 100))
     
@@ -125,3 +129,5 @@ elif modulo == "🕵️ Operaciones SOC":
         st.info("ℹ️ 19:05:00 - [INFO] Backup incremental exitoso")
     else:
         st.info("Active el switch para ver los logs en tiempo real.")
+
+

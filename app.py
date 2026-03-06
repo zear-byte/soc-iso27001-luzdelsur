@@ -3,144 +3,151 @@ import pandas as pd
 import plotly.express as px
 import hashlib
 
-# --- 1. CONFIGURACIÓN DE NIVEL "MICROSOFT AZURE" ---
+# --- 1. CONFIGURACIÓN DE INTERFAZ DE ALTO NIVEL ---
 st.set_page_config(
-    page_title="SOC Luz del Sur - ISO 27001", 
+    page_title="SOC Luz del Sur | Enterprise Security", 
     page_icon="🛡️", 
     layout="wide", 
     initial_sidebar_state="expanded"
 )
 
-# Estilo CSS Personalizado para entorno de Ciberseguridad
+# --- 2. DISEÑO VISUAL AVANZADO (CSS CUSTOM) ---
 st.markdown("""
     <style>
-    .main { background-color: #0e1117; }
-    div[data-testid="stMetricValue"] { font-size: 24px; color: #00ff41; }
-    .stAlert { border-radius: 10px; }
+    /* Fondo principal y fuentes */
+    .main { background-color: #0d1117; color: #c9d1d9; }
+    
+    /* Estilo para las métricas (Tarjetas Neón) */
+    div[data-testid="stMetric"] {
+        background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+        border: 1px solid #30363d;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: transform 0.3s;
+    }
+    div[data-testid="stMetric"]:hover {
+        transform: translateY(-5px);
+        border-color: #58a6ff;
+    }
+    
+    /* Títulos y Subtítulos */
+    h1, h2, h3 { color: #58a6ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    
+    /* Sidebar Profesional */
+    section[data-testid="stSidebar"] {
+        background-color: #161b22;
+        border-right: 1px solid #30363d;
+    }
+    
+    /* Botones y Toggles */
+    .stCheckbox, .stToggleButton { color: #58a6ff; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. BARRA LATERAL (NAVEGACIÓN TÉCNICA) ---
+# --- 3. BARRA LATERAL ESTRATÉGICA ---
 with st.sidebar:
-    st.title("🛡️ SOC Command")
-    st.markdown("### **Luz del Sur S.A.A.**")
-    st.write("Sede: Miraflores | Año: 2026")
+    st.markdown("<h1 style='text-align: center; color: #58a6ff;'>🛡️ COMMAND CENTER</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 0.8em;'>LUZ DEL SUR S.A.A. | MIRAFLORES</p>", unsafe_allow_html=True)
     st.write("---")
     
     modulo = st.radio(
-        "Módulos del Sistema (ISO 27001):",
-        ["Dashboard de Control (KRI)", 
-         "Inventario de Activos (A.8)", 
-         "Matriz de Riesgos (6.1.2)", 
-         "Criptografía y VPN (A.10)", 
-         "Centro de Incidentes (SOC)"]
+        "SISTEMA DE GESTIÓN (ISO 27001):",
+        ["🚀 Dashboard de Mando", 
+         "📦 Activos Críticos", 
+         "📊 Análisis de Riesgos", 
+         "🔐 Criptografía & VPN", 
+         "🕵️ Operaciones SOC"]
     )
     
     st.write("---")
-    st.info("Desarrollado bajo estándares NIST y ISO 27001 para Auditoría Senior.")
+    st.success("STATUS: SISTEMA EN LÍNEA")
+    st.caption("Versión 2.0 - Auditoría Senior 2026")
 
-# --- 3. LÓGICA DE LOS MÓDULOS ---
+# --- 4. LÓGICA DE MÓDULOS ---
 
-# MODULO 1: DASHBOARD ESTRATÉGICO
-if modulo == "Dashboard de Control (KRI)":
+# MODULO 1: DASHBOARD
+if modulo == "🚀 Dashboard de Mando":
     st.title("📊 Ecosistema de Defensa Proactiva")
-    st.markdown("### Indicadores Clave de Riesgo (Sesión 4)")
+    st.markdown("Indicadores de Desempeño de Seguridad (S4)")
     
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Disponibilidad Red", "99.98%", "Estable")
-    c2.metric("Alertas Bloqueadas", "42", "+12 hoy")
-    c3.metric("Integridad (PKI)", "Activa", "Seguro")
-    c4.metric("Compliance Global", "96%", "Optimizado")
+    c1.metric("DISPONIBILIDAD", "99.99%", "Optimal")
+    c2.metric("THREATS BLOCKED", "1,240", "+15%", delta_color="inverse")
+    c3.metric("INTEGRITY CHECK", "PASS", "Verified")
+    c4.metric("COMPLIANCE ISO", "98%", "Ready")
 
     st.write("---")
-    st.subheader("Análisis de Tráfico y Amenazas (Tiempo Real)")
-    # Datos simulados de ataques detenidos
-    df_ataques = pd.DataFrame({
-        'Hora': ['10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'],
-        'Ataques Detenidos': [5, 12, 8, 15, 22, 10, 4, 18]
-    })
-    st.area_chart(df_ataques.set_index('Hora'), color="#00ff41")
+    st.subheader("🌐 Monitoreo Global de Tráfico")
+    df_chart = pd.DataFrame({'Hora': range(12), 'Paquetes Inspeccionados':})
+    st.area_chart(df_chart, x='Hora', y='Paquetes Inspeccionados', color="#58a6ff")
 
-# MODULO 2: GESTIÓN DE ACTIVOS
-elif modulo == "Inventario de Activos (A.8)":
+# MODULO 2: ACTIVOS
+elif modulo == "📦 Activos Críticos":
     st.title("📦 Gestión de Activos de Información")
-    st.markdown("#### Inventario basado en la Cláusula 5.9 de ISO 27001")
+    st.info("Clasificación de activos basada en la Cláusula 5.9 (ISO 27001)")
     
-    activos_data = {
-        "ID": ["ACT-01", "ACT-02", "ACT-03", "ACT-04", "ACT-05"],
-        "Activo": ["Base de Datos Clientes", "Servidores SCADA", "Gateway VPN", "Switches Core", "Backup Off-site"],
-        "Categoría": ["Información", "Hardware", "Software", "Hardware", "Servicio"],
-        "Criticidad": ["Crítica", "Crítica", "Alta", "Alta", "Media"],
-        "Propietario": ["Ciberseguridad", "Operaciones", "Redes", "Redes", "TI"]
-    }
-    df_activos = pd.DataFrame(activos_data)
-    st.table(df_activos)
-    st.success("✅ Inventario auditado y clasificado según impacto al negocio.")
+    activos = pd.DataFrame({
+        "ID": ["LDS-001", "LDS-002", "LDS-003", "LDS-004"],
+        "Activo Tecnológico": ["Core Database SQL", "Grid Control SCADA", "VPN Gateway", "Active Directory"],
+        "Criticidad": ["CRÍTICO", "CRÍTICO", "ALTO", "ALTO"],
+        "Impacto Negocio": ["Interrupción Total", "Falla Eléctrica", "Pérdida Acceso", "Suplantación Identidad"]
+    })
+    st.dataframe(activos, use_container_width=True)
 
-# MODULO 3: MATRIZ DE RIESGOS DINÁMICA
-elif modulo == "Matriz de Riesgos (6.1.2)":
-    st.title("⚠️ Evaluación y Tratamiento de Riesgos")
+# MODULO 3: RIESGOS
+elif modulo == "📊 Análisis de Riesgos":
+    st.title("📊 Matriz de Riesgo Residual")
     
-    # Slider de mitigación para simular Riesgo Residual
-    nivel_control = st.slider("Implementación de Controles (%)", 0, 100, 40)
+    st.markdown("Ajuste de controles para visualizar la **mitigación en tiempo real**:")
+    mitigacion = st.select_slider("Nivel de Madurez de Controles ISO 27002", 
+                                  options=[10, 30, 50, 70, 90, 100], value=50)
     
-    datos_riesgo = pd.DataFrame({
-        "Amenaza": ["Ransomware", "Ataque DoS", "Fuga de Datos", "Inyección SQL", "Fuerza Bruta"],
-        "Impacto": [5, 4, 5, 4, 3],
-        "Probabilidad_Original": [4, 5, 3, 4, 5]
+    riesgos = pd.DataFrame({
+        "Amenaza": ["Ransomware", "DDoS", "Fuga Data", "Inyección SQL"],
+        "Impacto":,
+        "Prob_Original":
     })
     
-    # Lógica de Riesgo Residual
-    datos_riesgo["Probabilidad_Residual"] = datos_riesgo["Probabilidad_Original"] * (1 - (nivel_control / 100))
+    riesgos["Prob_Residual"] = riesgos["Prob_Original"] * (1 - (mitigacion / 100))
     
-    fig = px.scatter(
-        datos_riesgo, x="Probabilidad_Residual", y="Impacto", 
-        text="Amenaza", size="Impacto", color="Amenaza",
-        title="Mapa de Calor de Riesgos (Riesgo Residual vs Impacto)",
-        range_x=[0, 6], range_y=[0, 6]
-    )
+    fig = px.scatter(riesgos, x="Prob_Residual", y="Impacto", text="Amenaza", 
+                     size="Impacto", color="Amenaza", template="plotly_dark",
+                     range_x=, range_y=)
     st.plotly_chart(fig, use_container_width=True)
-    st.info(f"Con un {nivel_control}% de controles, el riesgo residual se reduce proporcionalmente.")
 
-# MODULO 4: CRIPTOGRAFÍA
-elif modulo == "Criptografía y VPN (A.10)":
-    st.title("🔐 Seguridad de la Información (Cifrado)")
-    st.markdown("#### Simulación de Integridad y Confidencialidad (Sesión 12-13)")
+# MODULO 4: CRIPTO
+elif modulo == "🔐 Criptografía & VPN":
+    st.title("🔐 Módulo de Cifrado Corporativo")
     
-    col_izq, col_der = st.columns(2)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Verificación de Integridad")
+        msg = st.text_area("Mensaje a Transmitir:")
+        if msg:
+            st.code(f"SHA-256 HASH: {hashlib.sha256(msg.encode()).hexdigest()}")
+            st.caption("Garantiza el No-Repudio y la Integridad.")
     
-    with col_izq:
-        st.subheader("Cifrado de Mensajes")
-        msj = st.text_input("Dato sensible (ej. Password o Token):")
-        if msj:
-            hash_obj = hashlib.sha256(msj.encode())
-            st.code(f"Hash SHA-256: {hash_obj.hexdigest()}")
-            st.caption("Este hash garantiza la integridad del dato en tránsito.")
-            
-    with col_der:
-        st.subheader("Estado del Túnel VPN")
-        vpn_status = st.toggle("Activar VPN IPsec / TLS")
-        if vpn_status:
-            st.success("Túnel Encriptado: AES-256-GCM Activo")
-            st.image("https://img.icons8.com")
+    with col2:
+        st.subheader("Estado de Conectividad")
+        vpn = st.toggle("Activar Túnel IPsec con Cifrado AES-256")
+        if vpn:
+            st.success("TÚNEL ENCRIPTADO ACTIVO")
+            st.json({"Protocol": "IKEv2", "Cipher": "AES-GCM", "KeyLength": 256})
         else:
-            st.warning("Tráfico en texto claro (Vulnerable)")
+            st.warning("ALERTA: Tráfico en texto claro detectado.")
 
-# MODULO 5: OPERACIONES SOC
-elif modulo == "Centro de Incidentes (SOC)":
-    st.title("🕵️ Centro de Operaciones de Seguridad (SOC)")
-    st.markdown("#### Monitoreo Proactivo de Incidentes (Sesión 14)")
+# MODULO 5: SOC
+elif modulo == "🕵️ Operaciones SOC":
+    st.title("🕵️ Cyber Defense Operations (SOC)")
     
-    defensa = st.toggle("Activar Defensa Perimetral (IDS/IPS)")
-    
-    if defensa:
-        st.success("SISTEMA PROTEGIDO - Sensores en escucha activa.")
-        st.write("---")
-        st.markdown("**Logs del SIEM (Últimos 5 minutos):**")
-        st.error("🚨 [BLOQUEADO] Intento de Inyección SQL desde IP 190.12.44.1")
-        st.warning("⚠️ [ALERTA] Escaneo de puertos detectado en VLAN Miraflores.")
-        st.info("ℹ️ [INFO] Backup diario completado con éxito.")
+    if st.toggle("Iniciar Escaneo de Intrusión (IDS/IPS)"):
+        st.toast("Iniciando Sensores Suricata...")
+        st.success("SISTEMA EN ESCUCHA ACTIVA")
+        
+        st.markdown("### 🚨 Log de Eventos Recientes")
+        st.error("19:00:15 - [BLOQUEADO] Intento de Brute Force desde IP 185.22.x.x")
+        st.warning("19:02:40 - [ALERTA] Anomalía de tráfico en VLAN Miraflores")
+        st.info("19:05:00 - [INFO] Backup incremental exitoso en la nube")
     else:
-        st.error("SISTEMA VULNERABLE - Controles deshabilitados.")
-
-
+        st.error("DEFENSA DESACTIVADA - RIESGO DE INTRUSIÓN ALTO")

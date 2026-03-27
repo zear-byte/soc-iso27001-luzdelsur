@@ -44,7 +44,7 @@ with st.sidebar:
 # MODULO 1: DASHBOARD ESTRATÉGICO
 if modulo == "Dashboard de Control (KRI)":
     st.title("📊 Ecosistema de Defensa Proactiva")
-    st.markdown("### Indicadores Clave de Riesgo (Sesión 4)")
+    st.markdown("### Indicadores Clave de Riesgo ")
     
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Disponibilidad Red", "99.98%", "Estable")
@@ -105,7 +105,7 @@ elif modulo == "Matriz de Riesgos (6.1.2)":
 # MODULO 4: CRIPTOGRAFÍA
 elif modulo == "Criptografía y VPN (A.10)":
     st.title("🔐 Seguridad de la Información (Cifrado)")
-    st.markdown("#### Simulación de Integridad y Confidencialidad (Sesión 12-13)")
+    st.markdown("#### Simulación de Integridad y Confidencialidad")
     
     col_izq, col_der = st.columns(2)
     
@@ -129,7 +129,7 @@ elif modulo == "Criptografía y VPN (A.10)":
 # MODULO 5: OPERACIONES SOC
 elif modulo == "Centro de Incidentes (SOC)":
     st.title("🕵️ Centro de Operaciones de Seguridad (SOC)")
-    st.markdown("#### Monitoreo Proactivo de Incidentes (Sesión 14)")
+    st.markdown("#### Monitoreo Proactivo de Incidentes ")
     
     defensa = st.toggle("Activar Defensa Perimetral (IDS/IPS)")
     
